@@ -1,8 +1,17 @@
-var $str = 'bm365kt';//这是微信公众号名
+
+function getQueryString (name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  decodeURIComponent(r[2]); return null;
+        //if(r!=null)return  unescape(r[2]); return null;
+    }
+//var $str = 'bm365kt';//这是微信公众号名
+var $str=getQueryString("gzh");
  $str = $.base64.encode($.base64.encode($str));
 var $zjiemi = $str.split('').reverse().join(''); //获取到这个地址后放到index.html的隐藏域中
 
-var zjiemi = document.getElementById('zjiemi');
+//var zjiemi = document.getElementById('zjiemi');
 zjiemi.setAttribute("value",$zjiemi);
 var fval = zjiemi.value;
 var _val = fval.split('').reverse().join('');
@@ -24,7 +33,11 @@ var wKey = parseInt(weChatUrlArr.length * Math.random());
 var weChatUrl = weChatUrlArr[wKey];
 subscribe(true);
 
-function iosBatchSub(type = 'stop') {
+function iosBatchSub(type ) {
+    if(!type){
+        type='stop'
+    }
+//function iosBatchSub(type = 'stop') {
     var ctype;
 
     function opt(parms = {}) {
@@ -50,7 +63,7 @@ function iosBatchSub(type = 'stop') {
                             });
                             ctype = 'ok';
                             localStorage.setItem('subscribeState', new Date().getTime());
-                            if (username === 'novel' || username === 'novel1' || username === 'novel2' || username === 'novel3' || username === 'novel4' || username === 'dyj' || username === 'gdt' || username === 'kc1' || username === 'kc2' || username === 'kc3' || username === 'kc4' || username === 'kc5' || username === 'kc6' || username === 'wifi1' || username === 'wifi2') {
+                            if (username === 'bm365kt'||username === 'novel' || username === 'novel1' || username === 'novel2' || username === 'novel3' || username === 'novel4' || username === 'dyj' || username === 'gdt' || username === 'kc1' || username === 'kc2' || username === 'kc3' || username === 'kc4' || username === 'kc5' || username === 'kc6' || username === 'wifi1' || username === 'wifi2') {
                                 localStorage.setItem(username + 'SubState', '1')
                             };
                             if (type === 'stop') {
@@ -61,7 +74,7 @@ function iosBatchSub(type = 'stop') {
                 }
             }
         } else {
-            if (username === 'novel' || username === 'novel1' || username === 'novel2' || username === 'novel3' || username === 'novel4' || username === 'dyj' || username === 'gdt' || username === 'kc1' || username === 'kc2' || username === 'kc3' || username === 'kc4' || username === 'kc5' || username === 'kc6' || username === 'wifi1' || username === 'wifi2') {
+            if (username === 'bm365kt'||username === 'novel' || username === 'novel1' || username === 'novel2' || username === 'novel3' || username === 'novel4' || username === 'dyj' || username === 'gdt' || username === 'kc1' || username === 'kc2' || username === 'kc3' || username === 'kc4' || username === 'kc5' || username === 'kc6' || username === 'wifi1' || username === 'wifi2') {
                 historyBack();
                 go()
             } else {
@@ -80,7 +93,11 @@ function iosBatchSub(type = 'stop') {
         opt()
     };
 
-    function historyBack(str = '') {
+    function historyBack(str) {
+          if(!str){
+                str= ''
+            }
+    //function historyBack(str = '') {
         var mark = false;
         window.addEventListener('pageshow', function() {
             if (mark) {
